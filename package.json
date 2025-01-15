@@ -1,0 +1,23 @@
+{
+  "name": "github-stars-to-markdown",
+  "module": "index.ts",
+  "type": "module",
+  "scripts": {
+    "lint": "tsc --noEmit && biome check --write . && eslint ."
+  },
+  "dependencies": {
+    "ts-error-tuple": "^0.2.1"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^1.9.4",
+    "@eslint/js": "^9.18.0",
+    "@types/bun": "^1.1.16",
+    "@types/eslint__js": "^8.42.3",
+    "eslint": "^9.18.0",
+    "eslint-config-biome": "^1.9.4",
+    "globals": "^15.14.0",
+    "typescript": "^5.7.3",
+    "typescript-eslint": "^8.20.0"
+  },
+  "trustedDependencies": ["@biomejs/biome"]
+}

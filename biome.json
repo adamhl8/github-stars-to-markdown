@@ -1,0 +1,31 @@
+{
+  "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
+  "linter": {
+    "rules": {
+      "all": true,
+      "style": {
+        "useBlockStatements": "off",
+        "useNamingConvention": "off",
+        "noNamespaceImport": "off",
+        "useFilenamingConvention": "off",
+        "noDefaultExport": "off"
+      },
+      "correctness": {
+        "noNodejsModules": "off"
+      },
+      "suspicious": {
+        "noConsole": "off"
+      }
+    }
+  },
+  "formatter": {
+    "indentStyle": "space",
+    "lineWidth": 120
+  },
+  "javascript": {
+    "formatter": {
+      "semicolons": "asNeeded"
+    },
+    "globals": ["Bun"]
+  }
+}
