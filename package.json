@@ -6,16 +6,18 @@
     "lint": "tsc --noEmit && biome check --write . && eslint ."
   },
   "dependencies": {
-    "ts-error-tuple": "^0.2.1"
+    "ts-error-tuple": "^1.0.0"
   },
   "devDependencies": {
     "@adamhl8/configs": "^0.3.0",
     "@biomejs/biome": "^2.0.6",
-    "@eslint/js": "^9.18.0",
-    "@types/bun": "^1.1.16",
-    "@types/eslint__js": "^8.42.3",
-    "globals": "^15.14.0",
-    "typescript": "^5.7.3"
+    "@eslint/js": "^9.30.0",
+    "@types/bun": "^1.2.17",
+    "@types/eslint__js": "^9.14.0",
+    "globals": "^16.3.0",
+    "typescript": "^5.8.3"
   },
-  "trustedDependencies": ["@biomejs/biome"]
+  "trustedDependencies": [
+    "@biomejs/biome"
+  ]
 }
