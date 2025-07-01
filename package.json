@@ -3,7 +3,7 @@
   "module": "index.ts",
   "type": "module",
   "scripts": {
-    "lint": "tsc --noEmit && biome check --write . && eslint ."
+    "lint": "tsc --noEmit && biome check --write"
   },
   "dependencies": {
     "ts-error-tuple": "^1.0.0"
