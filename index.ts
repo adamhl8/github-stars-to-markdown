@@ -1,4 +1,6 @@
-import { type Err, type Result, attempt, fmtError } from "ts-error-tuple"
+import process from "node:process"
+import type { Result } from "ts-explicit-errors"
+import { attempt, err, isErr } from "ts-explicit-errors"
 
 interface Repository {
   full_name: string
@@ -17,7 +19,8 @@ async function getStarredRepos(username: string, token: string): Promise<Result<
   while (true) {
     console.info(`Fetching page ${page.toString()}...`)
 
-    const [res, err] = await attempt(() =>
+    // biome-ignore lint/nursery/noAwaitInLoop: ignore
+    const res = await attempt(() =>
       fetch(`https://api.github.com/users/${username}/starred?per_page=100&page=${page.toString()}`, {
         method: "GET",
         headers: {
@@ -26,11 +29,11 @@ async function getStarredRepos(username: string, token: string): Promise<Result<
         },
       }),
     )
-    if (err) return [undefined, fmtError("failed to fetch starts", err)]
-    if (!res.ok) return [undefined, fmtError(`failed to fetch stars: (${res.status.toString()}) ${res.statusText}`)]
+    if (isErr(res)) return err("failed to fetch starts", res)
+    if (!res.ok) return err(`failed to fetch stars: (${res.status.toString()}) ${res.statusText}`)
 
-    const [repos, resJsonErr] = await attempt(() => res.json() as Promise<Repository[]>)
-    if (resJsonErr) return [undefined, fmtError("failed to parse stars", resJsonErr)]
+    const repos = await attempt(() => res.json() as Promise<Repository[]>)
+    if (isErr(repos)) return err("failed to parse stars", repos)
 
     if (repos.length === 0) break
 
@@ -38,10 +41,10 @@ async function getStarredRepos(username: string, token: string): Promise<Result<
     page++
   }
 
-  return [allRepos, undefined]
+  return allRepos
 }
 
-async function generateStarsMd(currentStarsMd: string, repos: Repository[]): Promise<Err> {
+async function generateStarsMd(currentStarsMd: string, repos: Repository[]): Promise<Result> {
   let newStarsMd = currentStarsMd
   let unsortedHeaderIndex = newStarsMd.indexOf(UNSORTED_HEADER)
   if (unsortedHeaderIndex === -1) {
@@ -64,33 +67,36 @@ async function generateStarsMd(currentStarsMd: string, repos: Repository[]): Pro
   const afterInsert = newStarsMd.slice(insertPosition)
   newStarsMd = `${beforeInsert}${repoLinksStr}${afterInsert}`
 
-  const [, writeErr] = await attempt(() => Bun.write(MD_FILE_NAME, newStarsMd))
-  if (writeErr) return fmtError(`failed to write ${MD_FILE_NAME}`, writeErr)
+  const writeResult = await attempt(() => Bun.write(MD_FILE_NAME, newStarsMd))
+  if (isErr(writeResult)) return err(`failed to write ${MD_FILE_NAME}`, writeResult)
 }
 
-async function main(): Promise<Err> {
+async function main(): Promise<Result> {
   const { GITHUB_USERNAME, GITHUB_TOKEN } = Bun.env
-  if (!GITHUB_USERNAME) return fmtError("GITHUB_USERNAME is not set")
-  if (!GITHUB_TOKEN) return fmtError("GITHUB_TOKEN is not set")
+  if (!GITHUB_USERNAME) return err("GITHUB_USERNAME is not set")
+  if (!GITHUB_TOKEN) return err("GITHUB_TOKEN is not set")
 
-  const [repos, err] = await getStarredRepos(GITHUB_USERNAME, GITHUB_TOKEN)
-  if (err) return fmtError("failed to get starred repos", err)
+  const repos = await getStarredRepos(GITHUB_USERNAME, GITHUB_TOKEN)
+  if (isErr(repos)) return err("failed to get starred repos", repos)
 
   console.info(`Fetched ${repos.length.toString()} starred repositories`)
 
-  const [currentStarsMd, currentStarsMdErr] = await attempt(async () => {
+  const currentStarsMd = await attempt(async () => {
     const file = Bun.file(MD_FILE_NAME)
     const exists = await file.exists()
     if (!exists) return `${TITLE_HEADER}\n\n---\n\n${UNSORTED_HEADER}\n`
     return file.text()
   })
-  if (currentStarsMdErr) return fmtError("failed to read current stars", currentStarsMdErr)
+  if (isErr(currentStarsMd)) return err("failed to read current stars", currentStarsMd)
 
   const generateStarsMdErr = await generateStarsMd(currentStarsMd, repos)
-  if (generateStarsMdErr) return fmtError(`failed to generate ${MD_FILE_NAME}`, generateStarsMdErr)
+  if (isErr(generateStarsMdErr)) return err(`failed to generate ${MD_FILE_NAME}`, generateStarsMdErr)
 
-  return undefined
+  return
 }
 
-const err = await main()
-if (err) console.error(err.message)
+const result = await main()
+if (isErr(result)) {
+  console.error(result.fmtErr("something went wrong"))
+  process.exitCode = 1
+}

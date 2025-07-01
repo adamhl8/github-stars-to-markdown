@@ -4,13 +4,12 @@
     "": {
       "name": "github-stars-to-markdown",
       "dependencies": {
-        "ts-error-tuple": "^1.0.0",
+        "ts-explicit-errors": "^2.2.0",
       },
       "devDependencies": {
-        "@adamhl8/configs": "^0.3.0",
+        "@adamhl8/configs": "^0.4.2",
         "@biomejs/biome": "^2.0.6",
         "@types/bun": "^1.2.17",
-        "globals": "^16.3.0",
         "typescript": "^5.8.3",
       },
     },
@@ -19,7 +18,7 @@
     "@biomejs/biome",
   ],
   "packages": {
-    "@adamhl8/configs": ["@adamhl8/configs@0.3.0", "", { "dependencies": { "@prettier/plugin-xml": "^3.4.1", "prettier-plugin-astro": "^0.14.1", "prettier-plugin-sh": "^0.18.0", "prettier-plugin-tailwindcss": "^0.6.13", "prettier-plugin-toml": "^2.0.5" } }, "sha512-zWQu8xnognxMlDrRApE1205ntf74H1CqEY1fwdV3J14oy9YFkJILTNwBZjTNwAabqA6MYQoASYyV3p3UXlaYuQ=="],
+    "@adamhl8/configs": ["@adamhl8/configs@0.4.2", "", { "dependencies": { "@prettier/plugin-xml": "^3.4.1", "prettier-plugin-astro": "^0.14.1", "prettier-plugin-sh": "^0.18.0", "prettier-plugin-tailwindcss": "^0.6.13", "prettier-plugin-toml": "^2.0.5" } }, "sha512-Ah/F/cZ6cAOvmCRrqEXtTzGYUpVxxeZ3kvLs/eH+rQ14gWoxfcw2nGFRazHSrIB3Fea4G3iceiCVApZ4spgHuQ=="],
 
     "@astrojs/compiler": ["@astrojs/compiler@2.12.2", "", {}, "sha512-w2zfvhjNCkNMmMMOn5b0J8+OmUaBL1o40ipMvqcG6NRpdC+lKxmTi48DT8Xw0SzJ3AfmeFLB45zXZXtmbsjcgw=="],
 
@@ -51,15 +50,13 @@
 
     "@types/bun": ["@types/bun@1.2.17", "", { "dependencies": { "bun-types": "1.2.17" } }, "sha512-l/BYs/JYt+cXA/0+wUhulYJB6a6p//GTPiJ7nV+QHa8iiId4HZmnu/3J/SowP5g0rTiERY2kfGKXEK5Ehltx4Q=="],
 
-    "@types/node": ["@types/node@24.0.8", "", { "dependencies": { "undici-types": "~7.8.0" } }, "sha512-WytNrFSgWO/esSH9NbpWUfTMGQwCGIKfCmNlmFDNiI5gGhgMmEA+V1AEvKLeBNvvtBnailJtkrEa2OIISwrVAA=="],
+    "@types/node": ["@types/node@24.0.10", "", { "dependencies": { "undici-types": "~7.8.0" } }, "sha512-ENHwaH+JIRTDIEEbDK6QSQntAYGtbvdDXnMXnZaZ6k13Du1dPMmprkEHIL7ok2Wl2aZevetwTAb5S+7yIF+enA=="],
 
     "@xml-tools/parser": ["@xml-tools/parser@1.0.11", "", { "dependencies": { "chevrotain": "7.1.1" } }, "sha512-aKqQ077XnR+oQtHJlrAflaZaL7qZsulWc/i/ZEooar5JiWj1eLt0+Wg28cpa+XLney107wXqneC+oG1IZvxkTA=="],
 
     "bun-types": ["bun-types@1.2.17", "", { "dependencies": { "@types/node": "*" } }, "sha512-ElC7ItwT3SCQwYZDYoAH+q6KT4Fxjl8DtZ6qDulUFBmXA8YB4xo+l54J9ZJN+k2pphfn9vk7kfubeSd5QfTVJQ=="],
 
     "chevrotain": ["chevrotain@7.1.1", "", { "dependencies": { "regexp-to-ast": "0.5.0" } }, "sha512-wy3mC1x4ye+O+QkEinVJkPf5u2vsrDIYW9G7ZuwFl6v/Yu0LwUuT2POsb+NUWApebyxfkQq6+yDfRExbnI5rcw=="],
-
-    "globals": ["globals@16.3.0", "", {}, "sha512-bqWEnJ1Nt3neqx2q5SFfGS8r/ahumIakg3HcwtNlrVlwXIeNumWn/c7Pn/wKzGhf6SaW6H6uWXLqC30STCMchQ=="],
 
     "prettier": ["prettier@3.6.2", "", { "bin": { "prettier": "bin/prettier.cjs" } }, "sha512-I7AIg5boAr5R0FFtJ6rCfD+LFsWHp81dolrFD8S79U9tb8Az2nGrJncnMSnys+bpQJfRUzqs9hnA81OAA3hCuQ=="],
 
@@ -81,7 +78,7 @@
 
     "suf-log": ["suf-log@2.5.3", "", { "dependencies": { "s.color": "0.0.15" } }, "sha512-KvC8OPjzdNOe+xQ4XWJV2whQA0aM1kGVczMQ8+dStAO6KfEB140JEVQ9dE76ONZ0/Ylf67ni4tILPJB41U0eow=="],
 
-    "ts-error-tuple": ["ts-error-tuple@1.0.0", "", {}, "sha512-XABfEDEtOM9pwH1PhOsu41YUEu2698U6kE32hywdTk0/qY2Kxk8L0xzs990ZbOTSqTHoaonQ20Ag1Gaw6u3ykQ=="],
+    "ts-explicit-errors": ["ts-explicit-errors@2.2.0", "", {}, "sha512-Xav/9xn3Rc7R5ED0xF99OpRXyReRfcREgHitkok7pnXy9hkO4w32557zUFVpTdoeOhvOpOvLHTvS4IR39wxrKg=="],
 
     "tslib": ["tslib@2.8.1", "", {}, "sha512-oJFu94HQb+KVduSUQL7wnpmqnfmLsOA/nAh6b6EH0wCEoK0/mPeXU6c3wKDV83MkOuHPRHtSXKKU99IBazS/2w=="],
 
