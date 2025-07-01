@@ -9,15 +9,13 @@
     "ts-error-tuple": "^0.2.1"
   },
   "devDependencies": {
-    "@biomejs/biome": "^1.9.4",
+    "@adamhl8/configs": "^0.3.0",
+    "@biomejs/biome": "^2.0.6",
     "@eslint/js": "^9.18.0",
     "@types/bun": "^1.1.16",
     "@types/eslint__js": "^8.42.3",
-    "eslint": "^9.18.0",
-    "eslint-config-biome": "^1.9.4",
     "globals": "^15.14.0",
-    "typescript": "^5.7.3",
-    "typescript-eslint": "^8.20.0"
+    "typescript": "^5.7.3"
   },
   "trustedDependencies": ["@biomejs/biome"]
 }
