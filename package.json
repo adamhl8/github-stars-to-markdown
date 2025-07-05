@@ -4,7 +4,7 @@
   "module": "index.ts",
   "scripts": {
     "lint": "tsc --noEmit && biome check --write",
-    "prepare": "find .githooks -type f -exec ln -srf {} .git/hooks/ \\;"
+    "prepare": "find .githooks -type f -exec ln -srf {} .git/hooks/ \\; || true"
   },
   "dependencies": {
     "ts-explicit-errors": "^2.2.0"
@@ -14,6 +14,5 @@
     "@biomejs/biome": "^2.0.6",
     "@types/bun": "^1.2.18",
     "typescript": "^5.8.3"
-  },
-  "trustedDependencies": ["@biomejs/biome"]
+  }
 }
