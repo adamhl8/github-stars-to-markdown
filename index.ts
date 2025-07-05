@@ -1,4 +1,3 @@
-import process from "node:process"
 import type { Result } from "ts-explicit-errors"
 import { attempt, err, isErr } from "ts-explicit-errors"
 
@@ -98,5 +97,6 @@ async function main(): Promise<Result> {
 const result = await main()
 if (isErr(result)) {
   console.error(result.fmtErr("something went wrong"))
+  // biome-ignore lint/nursery/noProcessGlobal: using an import statement of 'import * as process from "node:process"' causes 'exitCode' to be readonly, so assigning to it is an error
   process.exitCode = 1
 }
