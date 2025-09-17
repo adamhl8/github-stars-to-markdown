@@ -7,12 +7,14 @@
     "prepare": "find .githooks -type f -exec ln -srf {} .git/hooks/ \\; || true"
   },
   "dependencies": {
-    "ts-explicit-errors": "^2.2.0"
+    "ts-explicit-errors": "^4.0.1"
   },
   "devDependencies": {
-    "@adamhl8/configs": "^0.9.1",
-    "@biomejs/biome": "^2.1.1",
-    "@types/bun": "^1.2.18",
-    "typescript": "^5.8.3"
+    "@adamhl8/configs": "^0.15.15",
+    "@biomejs/biome": "^2.2.4",
+    "@types/bun": "^1.2.22",
+    "knip": "^5.63.1",
+    "markdown-toc": "^1.2.0",
+    "typescript": "^5.9.2"
   }
 }
