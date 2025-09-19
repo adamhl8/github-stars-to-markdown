@@ -1,3 +1,4 @@
+import process from "node:process"
 import type { Result } from "ts-explicit-errors"
 import { attempt, err, isErr } from "ts-explicit-errors"
 
@@ -14,11 +15,11 @@ async function getStarredRepos(username: string, token: string): Promise<Result<
   const allRepos: Repository[] = []
   let page = 1
 
-  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+  // biome-ignore lint/nursery/noUnnecessaryConditions: ignore
   while (true) {
     console.info(`Fetching page ${page.toString()}...`)
 
-    // biome-ignore lint/nursery/noAwaitInLoop: ignore
+    // biome-ignore lint/performance/noAwaitInLoops: ignore
     const res = await attempt(() =>
       fetch(`https://api.github.com/users/${username}/starred?per_page=100&page=${page.toString()}`, {
         method: "GET",
@@ -29,7 +30,7 @@ async function getStarredRepos(username: string, token: string): Promise<Result<
       }),
     )
     if (isErr(res)) return err("failed to fetch starts", res)
-    if (!res.ok) return err(`failed to fetch stars: (${res.status.toString()}) ${res.statusText}`)
+    if (!res.ok) return err(`failed to fetch stars: (${res.status.toString()}) ${res.statusText}`, undefined)
 
     const repos = await attempt(() => res.json() as Promise<Repository[]>)
     if (isErr(repos)) return err("failed to parse stars", repos)
@@ -72,8 +73,8 @@ async function generateStarsMd(currentStarsMd: string, repos: Repository[]): Pro
 
 async function main(): Promise<Result> {
   const { GITHUB_USERNAME, GITHUB_TOKEN } = Bun.env
-  if (!GITHUB_USERNAME) return err("GITHUB_USERNAME is not set")
-  if (!GITHUB_TOKEN) return err("GITHUB_TOKEN is not set")
+  if (!GITHUB_USERNAME) return err("GITHUB_USERNAME is not set", undefined)
+  if (!GITHUB_TOKEN) return err("GITHUB_TOKEN is not set", undefined)
 
   const repos = await getStarredRepos(GITHUB_USERNAME, GITHUB_TOKEN)
   if (isErr(repos)) return err("failed to get starred repos", repos)
@@ -96,7 +97,6 @@ async function main(): Promise<Result> {
 
 const result = await main()
 if (isErr(result)) {
-  console.error(result.fmtErr("something went wrong"))
-  // biome-ignore lint/nursery/noProcessGlobal: using an import statement of 'import * as process from "node:process"' causes 'exitCode' to be readonly, so assigning to it is an error
+  console.error(`something went wrong: ${result.messageChain}`)
   process.exitCode = 1
 }
